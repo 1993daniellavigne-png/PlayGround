@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#10171c" />
+  <title>Moonglow Hollow — Farm by day, defend by night</title>
+  <meta name="description" content="A cozy farming game with a tower-defense twist. Tend your crops by sunlight, raise lantern wards by moonlight, and survive seven restless nights." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-sun" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="6.2" fill="currentColor"/>
+      <g stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M16 3.2v3.4M16 25.4v3.4M3.2 16h3.4M25.4 16h3.4"/>
+        <path d="M7 7l2.4 2.4M22.6 22.6L25 25M25 7l-2.4 2.4M9.4 22.6L7 25"/>
+      </g>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 32 32">
+      <path d="M25.5 21.3A11 11 0 0 1 10.7 6.5a11.2 11.2 0 1 0 14.8 14.8Z" fill="currentColor"/>
+      <circle cx="23" cy="9" r="1.3" fill="currentColor" opacity=".75"/>
+      <circle cx="27" cy="14" r=".9" fill="currentColor" opacity=".6"/>
+    </symbol>
+    <symbol id="i-coin" viewBox="0 0 32 32">
+      <circle cx="16" cy="16" r="10.5" fill="#e0a83f"/>
+      <circle cx="16" cy="16" r="8.4" fill="#f8cf67"/>
+      <path d="M16 9.8l1.9 3.9 4.3.6-3.1 3 .7 4.3-3.8-2-3.8 2 .7-4.3-3.1-3 4.3-.6Z" fill="#c98a24" opacity=".8"/>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 32 32">
+      <path d="M16 27S4.5 20.2 4.5 12.2A6.2 6.2 0 0 1 16 8.4a6.2 6.2 0 0 1 11.5 3.8C27.5 20.2 16 27 16 27Z" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-hoe" viewBox="0 0 32 32">
+      <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 25L22.5 9.5"/>
+        <path d="M19 6.5l6.5 6.5"/>
+        <path d="M24.4 5.2c1.7 1.7 1.7 4.4 0 6.1l-2-2Z" fill="currentColor" stroke="none"/>
+        <path d="M4.6 22.4l5 5"/>
+      </g>
+    </symbol>
+    <symbol id="i-water" viewBox="0 0 32 32">
+      <path d="M16 4.5S7.8 14.1 7.8 20a8.2 8.2 0 1 0 16.4 0C24.2 14.1 16 4.5 16 4.5Z" fill="#7fd5ee"/>
+      <path d="M12 19.2c0 2.8 1.8 4.6 4 5" fill="none" stroke="#e9fbff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+    </symbol>
+    <symbol id="i-turnip" viewBox="0 0 32 32">
+      <path d="M16 10.2c4.4 0 7 2.6 7 6.6 0 5-3 10.4-7 10.4S9 22.2 9 16.8c0-4 2.6-6.6 7-6.6Z" fill="#ead9ec"/>
+      <path d="M16 22.6c-2.2 0-4-2-4-5.4 0-2.4 1.5-4.2 4-4.2s4 1.8 4 4.2c0 3.4-1.8 5.4-4 5.4Z" fill="#b98ac8" opacity=".55"/>
+      <g fill="none" stroke="#5e9c57" stroke-width="2.1" stroke-linecap="round">
+        <path d="M16 10c-.4-2.4-1.7-4-4-5.2M16 10c0-2.8.5-4.7 2.2-6.5M16 10c2.2-2 4.2-2.6 6.5-2.2"/>
+      </g>
+      <path d="M16 9.6c1.2-2 2.7-3.3 4.5-3.9-1.7-.1-3.4.9-4.5 2.4-.8-1.6-2.2-2.8-4-3.2 1.4 1.3 2.4 2.9 2.9 4.7Z" fill="#79b568"/>
+    </symbol>
+    <symbol id="i-sunberry" viewBox="0 0 32 32">
+      <g fill="none" stroke="#4e8a4f" stroke-width="2" stroke-linecap="round">
+        <path d="M16 27V12M16 18l-5-4M16 15l5-4M16 22l-4-2.6"/>
+      </g>
+      <circle cx="10.4" cy="9.4" r="4.2" fill="#e9893b"/>
+      <circle cx="21.8" cy="10.8" r="3.6" fill="#f2a84b"/>
+      <circle cx="16" cy="7.2" r="3.2" fill="#d96d2d"/>
+      <g fill="#ffd48c">
+        <circle cx="9.6" cy="8.4" r=".8"/><circle cx="21.2" cy="10" r=".7"/><circle cx="15.4" cy="6.4" r=".6"/>
+      </g>
+      <path d="M16 12c0-3.2 1.8-5.4 5-6.2-2.6-.2-4.8.8-6.2 2.8-1-1.6-2.5-2.6-4.5-2.9 1.7 1.5 2.6 3.5 2.7 6.3Z" fill="#6cae5f"/>
+    </symbol>
+    <symbol id="i-moonflower" viewBox="0 0 32 32">
+      <path d="M16 27V14" stroke="#5d8d73" stroke-width="2" stroke-linecap="round"/>
+      <path d="M16 21c-4 0-6.5-1.7-7-5 3.8-.4 6.2 1.2 7 5Zm0-4c3.6 0 6-1.5 6.6-4.6-3.5-.4-5.9 1.1-6.6 4.6Z" fill="#77a87b"/>
+      <g fill="#bfe7ff">
+        <ellipse cx="16" cy="7.5" rx="3.2" ry="4.3"/>
+        <ellipse cx="10.2" cy="11.2" rx="3.1" ry="4" transform="rotate(-52 10.2 11.2)"/>
+        <ellipse cx="21.8" cy="11.2" rx="3.1" ry="4" transform="rotate(52 21.8 11.2)"/>
+        <ellipse cx="11.4" cy="17" rx="3" ry="3.8" transform="rotate(-108 11.4 17)"/>
+        <ellipse cx="20.6" cy="17" rx="3" ry="3.8" transform="rotate(108 20.6 17)"/>
+      </g>
+      <circle cx="16" cy="12.5" r="3.3" fill="#f7e9a2"/>
+      <circle cx="16" cy="12.5" r="1.4" fill="#fff8d5"/>
+    </symbol>
+    <symbol id="i-lantern" viewBox="0 0 32 32">
+      <path d="M13.2 6h5.6M16 3v3" stroke="#d8c7a3" stroke-width="2" stroke-linecap="round"/>
+      <path d="M10.4 8h11.2l1.4 12.6c.2 1.6-2.8 2.9-7 2.9s-7.2-1.3-7-2.9Z" fill="#3f4f50" stroke="#d8c7a3" stroke-width="1.6"/>
+      <path d="M12.5 10h7l.9 9.4c.1 1.1-1.8 2-4.4 2s-4.5-.9-4.4-2Z" fill="#ffd97a"/>
+      <path d="M14 11.4c0 2.6-.6 4.1-1.6 5.6M18.7 10.8c.2 2.5.8 3.9 1.7 5.4" stroke="#fff5cc" stroke-width="1.2" stroke-linecap="round" opacity=".85"/>
+    </symbol>
+    <symbol id="i-frost" viewBox="0 0 32 32">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M16 4v24M5.6 10l20.8 12M26.4 10 5.6 22"/>
+        <path d="M16 8l-2.3-2.3M16 8l2.3-2.3M16 24l-2.3 2.3M16 24l2.3 2.3M9.5 13l-3.2-.6M9.5 13l.5-3.2M22.5 19l3.2.6M22.5 19l-.5 3.2M22.5 13l3.2-.6M22.5 13l-.5-3.2M9.5 19l-3.2.6M9.5 19l.5 3.2"/>
+      </g>
+    </symbol>
+    <symbol id="i-bramble" viewBox="0 0 32 32">
+      <path d="M16 28c-1.5-6.2-1-11.4 1.7-16 1.8-3 5.6-4.4 8.4-2.2 2.8 2.2 2.5 6.3-.3 8.1-2.1 1.4-4.9.9-6-1.2-.9-1.8-.3-3.8 1.3-4.8" fill="none" stroke="#8fbf70" stroke-width="2.3" stroke-linecap="round"/>
+      <g fill="#8fbf70">
+        <path d="M12.6 13.2 8 11l1.9 4.9Z"/><path d="M12 19.6 7.4 21l3.5 3.1Z"/><path d="M15.2 9l-1-4.8 3.6 2.1Z"/><path d="M20 12.4l3.9-2.7.1 5Z"/>
+      </g>
+      <circle cx="21.8" cy="9.8" r="1.4" fill="#f7dc86"/>
+      <circle cx="17.6" cy="19.6" r="1.2" fill="#f7dc86"/>
+    </symbol>
+    <symbol id="i-flame" viewBox="0 0 32 32">
+      <path d="M16.4 3.5c1.5 5.5-1.2 7.7-3.3 10.5-1.8 2.3-2.7 4.2-2.7 6.3a5.6 5.6 0 0 0 11.1.6c.2-3.3-1.7-5.3-3-7.6-.7 1.6-.8 2.7-.5 4.2-2.8-2.8-3.7-5.9-1.6-14Z" fill="#ffcf6e"/>
+      <path d="M16.6 16.5c.9 1.6.3 2.7-.6 3.5-1 .9-1.3 1.8-.8 2.9a2.9 2.9 0 0 0 4.1 1.5c-2.6 1.1-4.7-.2-4.7-2.4 0-1.8 1.5-2.9 2-5.5Z" fill="#fff3c4"/>
+    </symbol>
+    <symbol id="i-pause" viewBox="0 0 32 32">
+      <rect x="9.5" y="6" width="4.4" height="20" rx="1.6" fill="currentColor"/>
+      <rect x="18.1" y="6" width="4.4" height="20" rx="1.6" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-sound" viewBox="0 0 32 32">
+      <path d="M5 12.4h4.8L16.5 7v18l-6.7-5.4H5Z" fill="currentColor"/>
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M20.5 11.5a6.4 6.4 0 0 1 0 9M23.7 8.2a11 11 0 0 1 0 15.6"/>
+      </g>
+    </symbol>
+    <symbol id="i-muted" viewBox="0 0 32 32">
+      <path d="M5 12.4h4.8L16.5 7v18l-6.7-5.4H5Z" fill="currentColor"/>
+      <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M21 12l7 8M28 12l-7 8"/>
+      </g>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 32 32">
+      <path d="M9 9l14 14M23 9 9 23" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 32 32">
+      <path d="M16 3c.9 6.2 3.8 9.1 10 10-6.2.9-9.1 3.8-10 10-.9-6.2-3.8-9.1-10-10 6.2-.9 9.1-3.8 10-10Z" fill="currentColor"/>
+      <path d="M25.5 22c.4 2.6 1.6 3.8 4.2 4.2-2.6.4-3.8 1.6-4.2 4.2-.4-2.6-1.6-3.8-4.2-4.2 2.6-.4 3.8-1.6 4.2-4.2Z" fill="currentColor" opacity=".7"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 32 32">
+      <path d="M6 16h19M18 8.5 25.5 16 18 23.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-heart-empty" viewBox="0 0 32 32">
+      <path d="M16 27S4.5 20.2 4.5 12.2A6.2 6.2 0 0 1 16 8.4a6.2 6.2 0 0 1 11.5 3.8C27.5 20.2 16 27 16 27Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    </symbol>
+  </svg>
+
+  <div id="app">
+    <canvas id="game" aria-label="Moonglow Hollow game world"></canvas>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="backdrop-glow" aria-hidden="true"></div>
+
+    <div id="hud" class="hud is-hidden" aria-live="polite">
+      <header class="hud-top">
+        <div class="phase-card chip">
+          <div class="phase-icon" id="phaseIcon"><svg><use href="#i-sun"/></svg></div>
+          <div class="phase-copy">
+            <div class="eyebrow" id="phaseLabel">DAY 1</div>
+            <div class="phase-name" id="phaseName">Morning</div>
+          </div>
+          <div class="phase-clock">
+            <svg class="clock-ring" viewBox="0 0 44 44" aria-hidden="true">
+              <circle cx="22" cy="22" r="18" class="ring-bg"/>
+              <circle cx="22" cy="22" r="18" class="ring-fill" id="phaseRing"/>
+            </svg>
+            <span id="phaseTimer">1:25</span>
+          </div>
+        </div>
+
+        <div class="objective chip" id="objectiveChip">
+          <span class="objective-star"><svg><use href="#i-sparkle"/></svg></span>
+          <div>
+            <div class="eyebrow" id="objectiveLabel">Today</div>
+            <p id="objectiveText">Till three plots, plant turnip seeds, then water them.</p>
+          </div>
+        </div>
+
+        <div class="resources">
+          <div class="coin-pill chip" title="Moon coins">
+            <svg class="coin-icon"><use href="#i-coin"/></svg>
+            <span id="coinCount">130</span>
+          </div>
+          <div class="mobile-health chip" id="mobileHealth" title="Hearth health">
+            <svg><use href="#i-heart"/></svg><span id="mobileHeartCount">12</span>
+          </div>
+          <div class="hearts chip" id="hearts" title="Hearth health"></div>
+          <button class="icon-btn chip" id="soundBtn" type="button" aria-label="Mute sound" title="Sound">
+            <svg><use href="#i-sound"/></svg>
+          </button>
+          <button class="icon-btn chip" id="pauseBtn" type="button" aria-label="Pause game" title="Pause">
+            <svg><use href="#i-pause"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="event-banner" id="eventBanner">
+        <span class="event-kicker" id="eventKicker">Night falls</span>
+        <strong id="eventTitle">Hold the hollow</strong>
+        <span class="event-sub" id="eventSub">Shadows are on the path.</span>
+      </div>
+
+      <div class="toast-stack" id="toastStack"></div>
+
+      <div class="context-hint" id="contextHint">
+        <kbd>Space</kbd><span id="contextText">Till the soil</span>
+      </div>
+
+      <div class="bottom-wrap">
+        <div class="tip-strip" id="tipStrip">Click a glowing stone pad to raise a lantern ward.</div>
+        <div class="hotbar" id="hotbar" role="toolbar" aria-label="Tools and seeds"></div>
+      </div>
+
+      <div class="night-tools is-hidden" id="nightTools">
+        <button class="flare-btn" id="flareBtn" type="button" aria-label="Cast lantern flare">
+          <svg><use href="#i-flame"/></svg>
+          <span class="flare-label">Flare</span>
+          <span class="flare-key">F</span>
+          <span class="flare-sweep" id="flareSweep"></span>
+        </button>
+      </div>
+
+      <div class="touch-ui" id="touchUI">
+        <div class="joystick" id="joystick" aria-label="Movement joystick">
+          <div class="joystick-ring"></div>
+          <div class="joystick-stick" id="joystickStick"></div>
+        </div>
+        <div class="touch-actions">
+          <button class="round-btn flare-touch is-hidden" id="touchFlare" type="button">Flare</button>
+          <button class="round-btn act" id="touchAct" type="button">Act</button>
+        </div>
+      </div>
+
+      <div class="build-tray is-hidden" id="buildTray" role="dialog" aria-modal="false" aria-labelledby="buildTitle">
+        <div class="tray-head">
+          <div>
+            <span class="eyebrow" id="buildKicker">Stone pad</span>
+            <h3 id="buildTitle">Raise a ward</h3>
+          </div>
+          <button class="icon-btn small" id="buildClose" type="button" aria-label="Close build menu"><svg><use href="#i-close"/></svg></button>
+        </div>
+        <div class="tray-options" id="buildOptions"></div>
+        <div class="tray-foot" id="buildFoot">Wards fire on their own. Place them close to the path.</div>
+      </div>
+    </div>
+
+    <div class="overlay title-screen" id="titleScreen">
+      <div class="title-shade"></div>
+      <div class="title-inner">
+        <div class="title-mark">
+          <span class="title-kicker">A cozy farm under a restless moon</span>
+          <h1>Moonglow<br><em>Hollow</em></h1>
+          <div class="title-rule"><span></span><svg><use href="#i-sparkle"/></svg><span></span></div>
+          <p class="title-sub">Tend your crops by sunlight. Hold the gate by moonlight.</p>
+          <div class="title-actions">
+            <button class="btn btn-primary" id="playBtn" type="button">
+              <span>Begin the harvest</span><svg><use href="#i-arrow"/></svg>
+            </button>
+            <button class="btn btn-ghost" id="howBtn" type="button">How to play</button>
+          </div>
+          <div class="title-features">
+            <div><span class="feature-icon day"><svg><use href="#i-sun"/></svg></span><div><strong>By day</strong><span>Till, plant, water, harvest</span></div></div>
+            <div><span class="feature-icon night"><svg><use href="#i-moon"/></svg></span><div><strong>By night</strong><span>Raise wards, hold the line</span></div></div>
+            <div><span class="feature-icon gold"><svg><use href="#i-sparkle"/></svg></span><div><strong>Seven nights</strong><span>Break the Hollow's hold</span></div></div>
+          </div>
+          <p class="title-foot" id="titleFoot"><span class="key">WASD</span> move <span class="dot">·</span> <span class="key">Space</span> act <span class="dot">·</span> click the farm to tend it</p>
+        </div>
+        <div class="title-side">
+          <div class="moon-card">
+            <div class="moon-orb"></div>
+            <div class="moon-copy">
+              <span class="eyebrow">Tonight</span>
+              <strong>The first stirring</strong>
+              <span>Shadows gather at the treeline.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay modal-screen is-hidden" id="pauseScreen">
+      <div class="modal">
+        <span class="eyebrow">A breath between chores</span>
+        <h2>Rest a moment</h2>
+        <p class="modal-sub">The farm will wait. The shadows can wait a little longer.</p>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="resumeBtn" type="button"><span>Back to the farm</span><svg><use href="#i-arrow"/></svg></button>
+          <button class="btn btn-ghost" id="pauseHelpBtn" type="button">How to play</button>
+          <button class="btn btn-quiet" id="restartBtn" type="button">Start over</button>
+        </div>
+        <div class="modal-foot">Moonglow Hollow <span>·</span> Your farm waits where you left it.</div>
+      </div>
+    </div>
+
+    <div class="overlay modal-screen is-hidden" id="helpScreen">
+      <div class="modal modal-wide">
+        <button class="icon-btn small modal-close" id="helpClose" type="button" aria-label="Close"><svg><use href="#i-close"/></svg></button>
+        <span class="eyebrow">Field notes</span>
+        <h2>How to keep the hollow</h2>
+        <div class="help-grid">
+          <article class="help-card">
+            <span class="help-icon day"><svg><use href="#i-sun"/></svg></span>
+            <h3>Farm by day</h3>
+            <p>Walk to the field and use the hoe, seeds, and watering can. Crops grow at dawn only if watered.</p>
+            <ul>
+              <li><b>1–5</b> or tap a slot to choose</li>
+              <li><b>Space</b> or <b>Act</b> uses it on the nearest plot</li>
+              <li><b>Tap or click</b> a plot to walk over and tend it</li>
+            </ul>
+          </article>
+          <article class="help-card">
+            <span class="help-icon gold"><svg><use href="#i-lantern"/></svg></span>
+            <h3>Raise lantern wards</h3>
+            <p>Tap or click a carved stone pad to build. Lanterns strike, sprinklers slow, bramble totems burst.</p>
+            <ul>
+              <li>Tap or click a built ward to upgrade or sell</li>
+              <li>Wards fire by themselves, day or night</li>
+              <li>Rest at the farmhouse door to call dusk</li>
+            </ul>
+          </article>
+          <article class="help-card">
+            <span class="help-icon night"><svg><use href="#i-moon"/></svg></span>
+            <h3>Defend by night</h3>
+            <p>Shadows follow the old path to your hearth. If the hearth falls, the farm is lost.</p>
+            <ul>
+              <li><b>F</b> or tap the ground to cast a lantern flare</li>
+              <li>Keep the path covered with wards</li>
+              <li>Survive seven nights to win</li>
+            </ul>
+          </article>
+        </div>
+        <div class="help-foot">
+          <span><svg><use href="#i-water"/></svg> Refill at the well or pond.</span>
+          <span><svg><use href="#i-coin"/></svg> Harvest and clear nights earn moon coins.</span>
+          <button class="btn btn-primary" id="helpDone" type="button"><span>Back</span><svg><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay modal-screen is-hidden" id="endScreen">
+      <div class="modal end-modal">
+        <span class="eyebrow" id="endKicker">The hollow keeps its own</span>
+        <h2 id="endTitle">The hearth went dark</h2>
+        <p class="modal-sub" id="endSub">The shadows reached the farmhouse. Tomorrow is a different story.</p>
+        <div class="end-stats" id="endStats"></div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="endAgainBtn" type="button"><span>Try again</span><svg><use href="#i-arrow"/></svg></button>
+          <button class="btn btn-ghost" id="endTitleBtn" type="button">Back to title</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dawn-banner is-hidden" id="dawnBanner">
+      <div class="dawn-orb"></div>
+      <span class="eyebrow" id="dawnKicker">Dawn breaks</span>
+      <strong id="dawnTitle">Night one survived</strong>
+      <span id="dawnSub">+62 coins · crops have grown</span>
+    </div>
+
+    <div class="rotate-tip is-hidden" id="rotateTip">Turn your device for a wider view of the farm.</div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
